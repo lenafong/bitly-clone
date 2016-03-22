@@ -1,18 +1,36 @@
 get '/' do
-	@urls = Url.all.order('id DESC')
-	@url = nil
-	erb :"static/index"
+	if Url.all != []
+		@url = Url.all.order('id DESC').first
+		@trackingrecord = Url.all.where("id != ?", @url.id).order('id DESC')
+		erb :"static/index"
+	else
+		erb :"static/index2"
+	end
 end
 
 post '/urls' do 
-	@url=Url.new(long_url: params[:long_url])
-	if @url.save
+	#to check if the url exists, to avoid duplication
+	checking = Url.find_by(long_url: params[:long_url])
+
+	if checking != nil
+		checking.update(id: Url.last.id+1)
 		redirect '/'
-	else 
-		@error = @url.errors.messages[:long_url]
-		@urls = Url.all.order('id DESC')
-		erb :"static/index"
+	else
+		@url=Url.new(id: Url.last.id+1, long_url: params[:long_url])
+		if @url.save
+			redirect '/'
+		else 
+			@error = @url.errors.messages[:long_url]
+			if Url.all != []
+				@url = Url.all.order('id DESC').first
+				@trackingrecord = Url.all.where("id != ?", @url.id).order('id DESC')
+				erb :"static/index"
+			else
+				erb :"static/index2"
+			end
+		end
 	end
+
 end 
 
 get '/:short_url' do

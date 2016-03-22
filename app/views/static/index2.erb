@@ -1,0 +1,17 @@
+<h1>Shortened URL Generator</h1>
+
+<form action="/urls" method="post">
+	<b>Enter URL:</b>
+	<input type = "text" name="long_url">
+	<input type ="submit" value="Submit">
+</form>
+<br>
+<%if @error!=nil%>
+	<p> Error Message:</p>
+	<ol>
+	<%@error.each do |error|%>
+		<li><%=error%></li>
+	<%end%>
+	</ol>
+<%end%>
+

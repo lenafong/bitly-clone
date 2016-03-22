@@ -1,10 +1,9 @@
-require 'open-uri'
-require 'Nokogiri'
+
 
 class Url < ActiveRecord::Base
 	# This is Sinatra! Remember to create a migration!
 	validates_presence_of :long_url, :message => "No URL"
-	validates_format_of :long_url, :with => URI::regexp(%w(http https)), :message => "Invalid URL!No http or https"
+	validates_format_of :long_url, :with => URI::regexp(%w(http https)), :message => "Invalid URL! No http or https"
 	validate :validate_url
 
 	before_create :shorten 
@@ -26,7 +25,7 @@ class Url < ActiveRecord::Base
   #     		errors.add(:long_url,'Is Invalid')
   		#SocketErrors
 		rescue
-			errors.add(:long_url, 'Invalid URL. Missing ":" "/"? Please check your url!')
+			errors.add(:long_url, 'Invalid URL. Missing ":" "/"? Please check your url again!')
 		end
 
 	end

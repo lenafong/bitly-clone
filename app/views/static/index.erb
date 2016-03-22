@@ -15,14 +15,14 @@
 	</ol>
 <%end%>
 <br>
-<%if @error==nil%>
-<%=@urls[0].long_url%><br>
-<b><%="localhost:9393/" + @urls[0].shortened_url%></b>
-<%end%>
+<h3>Your recent URL</h3>
+<%=@url.long_url%><br>
+<b><%="localhost:9393/" + @url.shortened_url%></b><br>
+ <%="Visited Count: " + @url.click_count.to_s%>
 <br>
 <br>
 <h3>Track your URL </h3>
-<% @urls.each do |url| %> 
+<% @trackingrecord.each do |url| %> 
 	<p>
 	<%=url.long_url%><br>
  	<b><%="localhost:9393/" + url.shortened_url%></b><br>
