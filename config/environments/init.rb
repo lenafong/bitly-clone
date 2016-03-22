@@ -20,6 +20,12 @@ require "sinatra/reloader" if development?
 	# embedded ruby
 require 'erb'
 require 'uri'
+require 'securerandom'
+require 'net/http'
+require 'byebug'
+
+require 'open-uri'
+require 'Nokogiri'
 ######################################################################
 
 

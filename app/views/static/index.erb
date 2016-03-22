@@ -1,2 +1,33 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<h1>Shortened URL Generator</h1>
+
+<form action="/urls" method="post">
+	<b>Enter URL:</b>
+	<input type = "text" name="long_url">
+	<input type ="submit" value="Submit">
+</form>
+<br>
+<%if @error!=nil%>
+	<p> Error Message:</p>
+	<ol>
+	<%@error.each do |error|%>
+		<li><%=error%></li>
+	<%end%>
+	</ol>
+<%end%>
+<br>
+<%if @error==nil%>
+<%=@urls[0].long_url%><br>
+<b><%="localhost:9393/" + @urls[0].shortened_url%></b>
+<%end%>
+<br>
+<br>
+<h3>Track your URL </h3>
+<% @urls.each do |url| %> 
+	<p>
+	<%=url.long_url%><br>
+ 	<b><%="localhost:9393/" + url.shortened_url%></b><br>
+ 	<%="Visited Count: " + url.click_count.to_s%>
+ 	</p>
+<%end%>
+
+
